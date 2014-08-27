@@ -1,6 +1,10 @@
-﻿body {
-  font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+body,html {
+	font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
     overflow: scroll;
+	margin:0;
+	padding:0;
+	height:100%;
+	background: #1b1b1b url(http://int64ago-blog.qiniudn.com/backgroud.jpg) repeat fixed 0 0;
 }
 h1 {
   border-bottom: 1px solid #d2d2d2;
@@ -14,7 +18,7 @@ h3,h4 {
   color: #d2d2d2;
   font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
-h1 .view_github {
+h1 .view_chrome {
   display: block;
   font-size:  14px;
   line-height: 30px;
@@ -23,25 +27,13 @@ h1 .view_github {
   bottom: 0;
   border: 1px solid #d2d2d2;
   border-bottom: none;
-  border-radius:0;
-
+  border-radius:0px;
+  background-color: #AAA;
 }
-h1 .view_github:hover,h1 .view_code:hover {
+h1 .view_chrome:hover {
   background-color: #f5f5f5;
 }
 
-h1 .view_code {
-    display: block;
-    font-size:  14px;
-    line-height: 30px;
-    position: absolute;
-    right: 225px;
-    bottom: 0;
-    border: 1px solid #d2d2d2;
-    border-bottom: none;
-    border-radius:0;
-    height: 45px;
-}
 .col-md-12.no-padding {
     padding-left:0;
     padding-right:0;
@@ -101,10 +93,9 @@ tr .progress .chunk-status {
     padding-left: 24px;
 }
 #container a {
-  width: 15%;
+  width: 100%;
   min-width: 145px;
-
-
+  border-radius: 0px;
 }
 
 button {
@@ -213,4 +204,20 @@ pre  {
 
 a {
     cursor: pointer;
+}
+.modal-footer {
+	position:absolute;
+    bottom:0;
+    width:100%;
+    text-align:center;
+	opacity:0.9;
+	color: #C0C0C0;
+}
+.title-logo{
+	color:#FF6347;
+	text-shadow:2px 2px 2px #FFFFFF;
+}
+
+#pickfiles.btn-lg {
+	padding: 20px 16px;
 }
