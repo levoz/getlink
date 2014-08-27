@@ -1,0 +1,6 @@
+
+class QiniuConf:
+    ACCESS_KEY = ""
+    SECRET_KEY = ""
+    BUCKET_NAME = ""
+    BUCKET_DOMAIN = ""
