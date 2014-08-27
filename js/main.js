@@ -12,8 +12,8 @@ $(function() {
         uptoken_url: '/token',
         domain: 'http://int64ago.qiniudn.com/',
         // downtoken_url: '/downtoken',
-        // unique_names: true,
-        // save_key: true,
+        unique_names: true,
+        //save_key: true,
         // x_vars: {
         //     'id': '1234',
         //     'time': function(up, file) {
