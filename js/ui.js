@@ -193,14 +193,15 @@ FileProgress.prototype.setComplete = function(up, info) {
     var url;
     if (res.url) {
         url = res.url;
-        str = "<div><strong>Link:</strong><a href=" + res.url + " target='_blank' > " + res.url + "</a></div>" +
-            "<div class=hash><strong>Hash:</strong>" + res.hash + "</div>";
-    } else {
+        str = "<input class='form-control' id='inputLink' type='text'  value=" + res.url + "></div><br/>" + 
+		"<button type='submit' class='btn btn-default'>复制到剪贴板</button>";
+    }
+	else {
         var domain = up.getOption('domain');
         url = domain + encodeURI(res.key);
         var link = domain + res.key;
-        str = "<div><strong>Link:</strong><a href=" + url + " target='_blank' > " + link + "</a></div>" +
-            "<div class=hash><strong>Hash:</strong>" + res.hash + "</div>";
+        str = "<input class='form-control' id='inputLink' type='text'  value=" + url + "></div><br/>" + 
+		"<button type='submit' class='btn btn-default'>复制到剪贴板</button>";;
     }
 
     td.html(str).removeClass().next().next('.status').hide();
@@ -277,7 +278,7 @@ FileProgress.prototype.setComplete = function(up, info) {
 
 
             var fopLink = $('<a class="fopLink"/>');
-            fopLink.attr('data-key', res.key).text('查看处理效果');
+            fopLink.attr('data-key', res.key).text('更多样式...');
             infoWrapper.append(fopLink);
             fopLink.on('click', function() {
                 var key = $(this).data('key');
@@ -322,16 +323,10 @@ FileProgress.prototype.setComplete = function(up, info) {
 
             var ie = Qiniu.detectIEVersion();
             if (!(ie && ie <= 9)) {
-                var exif = Qiniu.exif(res.key);
-                if (exif) {
-                    var exifLink = $('<a href="" target="_blank">查看exif</a>');
-                    exifLink.attr('href', url + '?exif');
-                    infoWrapper.append(exifLink);
-                }
-
                 var imageInfo = Qiniu.imageInfo(res.key);
                 var infoArea = $('<div/>');
-                var infoInner = '<div>格式：<span class="origin-format">' + imageInfo.format + '</span></div>' +
+                var infoInner = 
+					'<div>格式：<span class="origin-format">' + imageInfo.format + '</span></div>' +
                     '<div>宽度：<span class="orgin-width">' + imageInfo.width + 'px</span></div>' +
                     '<div>高度：<span class="origin-height">' + imageInfo.height + 'px</span></div>';
                 infoArea.html(infoInner);
