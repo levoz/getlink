@@ -187,25 +187,36 @@ FileProgress.prototype.setProgress = function(percentage, speed, chunk_size) {
 };
 
 FileProgress.prototype.setComplete = function(up, info) {
+
     var td = this.fileProgressWrapper.find('td:eq(2) .progress');
 
     var res = $.parseJSON(info);
     var url;
+	var button = "<button id='"+ this.fileProgressID +"btn' class='btn btn-default'>复制到剪贴板</button>";
     if (res.url) {
         url = res.url;
-        str = "<input class='form-control' id='inputLink' type='text'  value=" + res.url + "></div><br/>" + 
-		"<button type='submit' class='btn btn-default'>复制到剪贴板</button>";
+        str = "<input id='" + this.fileProgressID + "in' class='form-control' type='text'  value=" + res.url + "/><br/>" + button;
     }
 	else {
         var domain = up.getOption('domain');
         url = domain + encodeURI(res.key);
         var link = domain + res.key;
-        str = "<input class='form-control' id='inputLink' type='text'  value=" + url + "></div><br/>" + 
-		"<button type='submit' class='btn btn-default'>复制到剪贴板</button>";;
+        str = "<input id='" + this.fileProgressID + "in' class='form-control' type='text'  value=" + url + "/><br/>" + button;
     }
 
     td.html(str).removeClass().next().next('.status').hide();
-
+	
+    $('#' + this.fileProgressID + 'btn').zclip({ 
+        path: 'js/ZeroClipboard.swf', 
+        copy: function(){
+			var picurl = $(this).prev().prev().val();
+            return picurl;
+        }, 
+        afterCopy: function(){
+			;
+        } 
+    }); 
+	
     var progressNameTd = this.fileProgressWrapper.find('.progressName');
     var imageView = '?imageView2/1/w/100/h/100';
 
@@ -280,6 +291,7 @@ FileProgress.prototype.setComplete = function(up, info) {
             var fopLink = $('<a class="fopLink"/>');
             fopLink.attr('data-key', res.key).text('更多样式...');
             infoWrapper.append(fopLink);
+			
             fopLink.on('click', function() {
                 var key = $(this).data('key');
                 var height = parseInt($(this).parents('.Wrapper').find('.origin-height').text(), 10);
