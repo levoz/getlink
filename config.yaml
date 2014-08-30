@@ -11,6 +11,9 @@ handlers:
 - url: /loading.gif
   static_path: loading.gif
 
+- url: /default.png
+  static_path: default.png
+
 - url: /js
   static_dir: js
   
