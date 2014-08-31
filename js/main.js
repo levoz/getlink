@@ -118,7 +118,6 @@ $(function() {
         }
         return 0;
     };
-
     $('#myModal-img .modal-body-footer').find('a').on('click', function() {
         var img = $('#myModal-img').find('.modal-body img');
         var key = img.data('key');
@@ -156,21 +155,8 @@ $(function() {
 
         $('#myModal-img .modal-body-footer').find('a.disabled').each(function() {
 
-            var watermark = $(this).data('watermark');
             var imageView = $(this).data('imageview');
             var imageMogr = $(this).data('imagemogr');
-
-            if (watermark) {
-                fopArr.push({
-                    fop: 'watermark',
-                    mode: 1,
-                    image: 'http://www.b1.qiniudn.com/images/logo-2.png',
-                    dissolve: 100,
-                    gravity: watermark,
-                    dx: 100,
-                    dy: 100
-                });
-            }
 
             if (imageView) {
                 var height;
@@ -217,7 +203,21 @@ $(function() {
             img.parent('a').attr('href', newUrl);
         };
         newImg.src = newUrl;
+		selectUrl = newUrl;
         return false;
     });
-
+	
+	var selectUrl;
+	var oldKey = null;
+	var newKey = null;
+	$('#select-ok').on('click', function(){
+		newKey = $('#myModal-img').find('.modal-body img').data('key');
+		if(newKey != oldKey){
+			selectUrl = 'http://int64ago.qiniudn.com/' + newKey;
+		}
+		alert(selectUrl);
+		
+		selectUrl = 'http://int64ago.qiniudn.com/' + newKey;
+		oldKey = newKey;
+	});
 });

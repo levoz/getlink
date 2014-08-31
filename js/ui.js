@@ -315,27 +315,17 @@ FileProgress.prototype.setComplete = function(up, info) {
                     q: 100,
                     format: 'png'
                 });
-                fopArr.push({
-                    fop: 'watermark',
-                    mode: 1,
-                    image: 'http://www.b1.qiniudn.com/images/logo-2.png',
-                    dissolve: 100,
-                    gravity: 'SouthEast',
-                    dx: 100,
-                    dy: 100
-                });
+				
                 var url = Qiniu.pipeline(fopArr, key);
                 $('#myModal-img').on('hide.bs.modal', function() {
                     $('#myModal-img').find('.btn-default').removeClass('disabled');
                     $('#myModal-img').find('.text-warning').hide();
                 }).on('show.bs.modal', function() {
                     $('#myModal-img').find('.imageView').find('a:eq(0)').addClass('disabled');
-                    $('#myModal-img').find('.watermark').find('a:eq(3)').addClass('disabled');
                     $('#myModal-img').find('.text-warning').hide();
                 });
 
                 initImg(url, key, height);
-
                 return false;
             });
 
@@ -388,7 +378,6 @@ FileProgress.prototype.appear = function() {
         clearTimeout(this.getTimer());
         this.setTimer(null);
     }
-/*
     if (this.fileProgressWrapper[0].filters) {
         try {
             this.fileProgressWrapper[0].filters.item("DXImageTransform.Microsoft.Alpha").opacity = 100;
@@ -399,7 +388,6 @@ FileProgress.prototype.appear = function() {
     } else {
         this.fileProgressWrapper.css('opacity', 1);
     }
-*/
     this.fileProgressWrapper.css('height', '');
 
     this.height = this.fileProgressWrapper.offset().top;
