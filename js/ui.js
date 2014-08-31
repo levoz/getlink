@@ -192,28 +192,34 @@ FileProgress.prototype.setComplete = function(up, info) {
 
     var res = $.parseJSON(info);
     var url;
-	var button = "<button id='"+ this.fileProgressID +"btn' class='btn btn-default'>复制到剪贴板</button>";
+	var button1 = "<button class='btn btn-default copypaste1'>复制到剪贴板</button>";
+	var button2 = "<button class='btn btn-default copypaste1'>复制</button>";
     if (res.url) {
         url = res.url;
-        str = "<input id='" + this.fileProgressID + "in' class='form-control' type='text'  value=" + res.url + " /><br/>" + button;
+        str = "<input class='form-control' type='text'  value=" + res.url + " /><br/>" + button1;
     }
 	else {
         var domain = up.getOption('domain');
         url = domain + encodeURI(res.key);
         var link = domain + res.key;
-        str = "<input id='" + this.fileProgressID + "in' class='form-control' type='text'  value=" + url + " /><br/>" + button;
+        str = "<input class='form-control' type='text'  value=" + url + " /><br/>" + button1;
     }
 
     td.html(str).removeClass().next().next('.status').hide();
+	td.append("<span class='label label-success suclb1'>复制成功</span>");
 	
-    $('#' + this.fileProgressID + 'btn').zclip({ 
+	var button1 = this.fileProgressWrapper.find('.copypaste1');
+	var label1 = this.fileProgressWrapper.find('.suclb1');
+	label1.hide();
+	
+	var picurl = this.fileProgressWrapper.find('.form-control').val();
+    button1.zclip({ 
         path: 'js/ZeroClipboard.swf', 
         copy: function(){
-			var picurl = $(this).prev().prev().val();
             return picurl;
         }, 
         afterCopy: function(){
-			;
+			label1.fadeIn("slow").fadeOut("slow");
         } 
     }); 
 	
@@ -382,7 +388,7 @@ FileProgress.prototype.appear = function() {
         clearTimeout(this.getTimer());
         this.setTimer(null);
     }
-
+/*
     if (this.fileProgressWrapper[0].filters) {
         try {
             this.fileProgressWrapper[0].filters.item("DXImageTransform.Microsoft.Alpha").opacity = 100;
@@ -393,7 +399,7 @@ FileProgress.prototype.appear = function() {
     } else {
         this.fileProgressWrapper.css('opacity', 1);
     }
-
+*/
     this.fileProgressWrapper.css('height', '');
 
     this.height = this.fileProgressWrapper.offset().top;
