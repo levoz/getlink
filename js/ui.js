@@ -192,31 +192,56 @@ FileProgress.prototype.setComplete = function(up, info) {
 
     var res = $.parseJSON(info);
     var url;
-	var button1 = "<button class='btn btn-default copypaste1'>复制到剪贴板</button>";
-	var button2 = "<button class='btn btn-default copypaste1'>复制</button>";
+	var button0 = "<button class='btn btn-default copypaste0'>复制此链接</button>";
+	var button1 = " <button class='btn btn-default copypaste1'>复制原图链接</button>";
+	var button2 = " <button class='btn btn-default copypaste2'>复制原图链接(带[img]标签)</button>";
     if (res.url) {
         url = res.url;
-        str = "<input class='form-control' type='text'  value=" + res.url + " /><br/>" + button1;
+        str = "<input class='form-control' type='text'  value=" + res.url + " /><br/>" + button0 + button1 + button2;
     }
 	else {
         var domain = up.getOption('domain');
         url = domain + encodeURI(res.key);
         var link = domain + res.key;
-        str = "<input class='form-control' type='text'  value=" + url + " /><br/>" + button1;
+        str = "<input class='form-control' type='text'  value=" + url + " /><br/>" + button0 + button1 + button2;
     }
 
     td.html(str).removeClass().next().next('.status').hide();
 	td.append("<span class='label label-success suclb1'>复制成功</span>");
 	
-	var button1 = this.fileProgressWrapper.find('.copypaste1');
+	var button_0 = this.fileProgressWrapper.find('.copypaste0');
+	var button_1 = this.fileProgressWrapper.find('.copypaste1');
+	var button_2 = this.fileProgressWrapper.find('.copypaste2');
 	var label1 = this.fileProgressWrapper.find('.suclb1');
 	label1.hide();
 	
 	var picurl = this.fileProgressWrapper;
-    button1.zclip({ 
+	var orgPicUrl = picurl.find('.form-control').val();
+	
+	button_0.zclip({
         path: 'js/ZeroClipboard.swf', 
         copy: function(){
             return picurl.find('.form-control').val();
+        }, 
+        afterCopy: function(){
+			label1.fadeIn("slow").fadeOut("slow");
+        } 
+    }); 
+	
+    button_1.zclip({ 
+        path: 'js/ZeroClipboard.swf', 
+        copy: function(){
+            return orgPicUrl;
+        }, 
+        afterCopy: function(){
+			label1.fadeIn("slow").fadeOut("slow");
+        } 
+    }); 
+	
+	button_2.zclip({ 
+        path: 'js/ZeroClipboard.swf', 
+        copy: function(){
+            return '[img]' + orgPicUrl + '[/img]';
         }, 
         afterCopy: function(){
 			label1.fadeIn("slow").fadeOut("slow");
