@@ -189,7 +189,6 @@ FileProgress.prototype.setProgress = function(percentage, speed, chunk_size) {
 FileProgress.prototype.setComplete = function(up, info) {
 
     var td = this.fileProgressWrapper.find('td:eq(2) .progress');
-
     var res = $.parseJSON(info);
     var url;
 	var button0 = "<button class='btn btn-default copypaste0'>复制此链接</button>";
@@ -206,6 +205,24 @@ FileProgress.prototype.setComplete = function(up, info) {
         str = "<input class='form-control' type='text'  value=" + url + " /><br/>" + button0 + button1 + button2;
     }
 
+	var isImage = function(url) {
+        var res, suffix = "";
+        var imageSuffixes = ["png", "jpg", "jpeg", "gif", "bmp"];
+        var suffixMatch = /\.([a-zA-Z0-9]+)(\?|\@|$)/;
+
+        if (!url || !suffixMatch.test(url)) {
+            return false;
+        }
+        res = suffixMatch.exec(url);
+        suffix = res[1].toLowerCase();
+        for (var i = 0, l = imageSuffixes.length; i < l; i++) {
+            if (suffix === imageSuffixes[i]) {
+                return true;
+            }
+        }
+        return false;
+    };
+	var isImg = isImage(url);
     td.html(str).removeClass().next().next('.status').hide();
 	td.append("<span class='label label-success suclb1'>复制成功</span>");
 	
@@ -247,29 +264,13 @@ FileProgress.prototype.setComplete = function(up, info) {
 			label1.fadeIn("slow").fadeOut("slow");
         } 
     }); 
-	
+	if(!isImg){
+		button_0.prop('disabled', true);
+		button_2.prop('disabled', true);
+	}
     var progressNameTd = this.fileProgressWrapper.find('.progressName');
     var imageView = '?imageView2/1/w/100/h/100';
 
-    var isImage = function(url) {
-        var res, suffix = "";
-        var imageSuffixes = ["png", "jpg", "jpeg", "gif", "bmp"];
-        var suffixMatch = /\.([a-zA-Z0-9]+)(\?|\@|$)/;
-
-        if (!url || !suffixMatch.test(url)) {
-            return false;
-        }
-        res = suffixMatch.exec(url);
-        suffix = res[1].toLowerCase();
-        for (var i = 0, l = imageSuffixes.length; i < l; i++) {
-            if (suffix === imageSuffixes[i]) {
-                return true;
-            }
-        }
-        return false;
-    };
-
-    var isImg = isImage(url);
 
     var Wrapper = $('<div class="Wrapper"/>');
     var imgWrapper = $('<div class="imgWrapper col-md-3"/>');
