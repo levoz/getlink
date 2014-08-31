@@ -212,11 +212,11 @@ FileProgress.prototype.setComplete = function(up, info) {
 	var label1 = this.fileProgressWrapper.find('.suclb1');
 	label1.hide();
 	
-	var picurl = this.fileProgressWrapper.find('.form-control').val();
+	var picurl = this.fileProgressWrapper;
     button1.zclip({ 
         path: 'js/ZeroClipboard.swf', 
         copy: function(){
-            return picurl;
+            return picurl.find('.form-control').val();
         }, 
         afterCopy: function(){
 			label1.fadeIn("slow").fadeOut("slow");
@@ -295,10 +295,11 @@ FileProgress.prototype.setComplete = function(up, info) {
 
 
             var fopLink = $('<a class="fopLink"/>');
-            fopLink.attr('data-key', res.key).text('更多样式...');
+            fopLink.attr('data-key', res.key).text('更多样式');
             infoWrapper.append(fopLink);
 			
             fopLink.on('click', function() {
+				$('#select-ok').prop('disabled', true);
                 var key = $(this).data('key');
                 var height = parseInt($(this).parents('.Wrapper').find('.origin-height').text(), 10);
                 if (height > $(window).height() - height_space) {

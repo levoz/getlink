@@ -204,20 +204,13 @@ $(function() {
         };
         newImg.src = newUrl;
 		selectUrl = newUrl;
+		$('#select-ok').prop('disabled', false);
         return false;
     });
 	
 	var selectUrl;
-	var oldKey = null;
-	var newKey = null;
 	$('#select-ok').on('click', function(){
-		newKey = $('#myModal-img').find('.modal-body img').data('key');
-		if(newKey != oldKey){
-			selectUrl = 'http://int64ago.qiniudn.com/' + newKey;
-		}
-		alert(selectUrl);
-		
-		selectUrl = 'http://int64ago.qiniudn.com/' + newKey;
-		oldKey = newKey;
+		var newKey = $('#myModal-img').find('.modal-body img').data('key');
+		$('#' + newKey.substring(0, newKey.lastIndexOf('.'))).find('.form-control').val(selectUrl);
 	});
 });
