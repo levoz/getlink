@@ -195,13 +195,13 @@ FileProgress.prototype.setComplete = function(up, info) {
 	var button = "<button id='"+ this.fileProgressID +"btn' class='btn btn-default'>复制到剪贴板</button>";
     if (res.url) {
         url = res.url;
-        str = "<input id='" + this.fileProgressID + "in' class='form-control' type='text'  value=" + res.url + "/><br/>" + button;
+        str = "<input id='" + this.fileProgressID + "in' class='form-control' type='text'  value=" + res.url + " /><br/>" + button;
     }
 	else {
         var domain = up.getOption('domain');
         url = domain + encodeURI(res.key);
         var link = domain + res.key;
-        str = "<input id='" + this.fileProgressID + "in' class='form-control' type='text'  value=" + url + "/><br/>" + button;
+        str = "<input id='" + this.fileProgressID + "in' class='form-control' type='text'  value=" + url + " /><br/>" + button;
     }
 
     td.html(str).removeClass().next().next('.status').hide();
