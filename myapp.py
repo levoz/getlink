@@ -1,6 +1,8 @@
 from flask import Flask, g, request, render_template
 from qiniu import io, rs, fop, conf
 from settings import QiniuConf
+from common import save_photo
+import urllib
 
 app = Flask(__name__)
 app.debug = True
@@ -23,3 +25,11 @@ def uptoken():
     policy = rs.PutPolicy(BUCKET_NAME)
     uptoken = policy.token()
     return '{"uptoken": "%s"}' % (uptoken)
+@app.route('/ext', methods=['GET'])
+def getlink():
+    url = request.args.get('url')
+    try:
+        data = urllib.urlopen(url).read()
+        return save_photo(data)
+    except:
+	    return 'none'
