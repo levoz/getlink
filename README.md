@@ -1,1 +1,1 @@
-方便优雅的获取图片外链（结合Chrome插件）
+介绍及使用方法请移步至wiki：https://gitcafe.com/int64ago/getlink/wiki
