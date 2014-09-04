@@ -1,11 +1,10 @@
-chrome.contextMenus.create({
-    'type':'normal',
-    'title':'Get Link!',
-	'contexts':["image"],
-    'id':'gl',
-    'onclick': function(info){
-		getlink(info.srcUrl);
-	}
+chrome.runtime.onInstalled.addListener(function() {
+	chrome.contextMenus.create({
+		'type':'normal',
+		'title':'Get Link!',
+		'contexts':["image"],
+		'id':'gl',
+	});
 });
 
 function showMsg(msgTitle, msgIcon, msgBody) {
@@ -32,6 +31,11 @@ function getlink(url){
 	}
 	xhr.send();
 }
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+    if (info.menuItemId == 'gl')
+        getlink(info.srcUrl);
+});
 
 function copyTextToClipboard(text) {
 	var copyFrom = document.createElement("textarea");
