@@ -192,8 +192,8 @@ FileProgress.prototype.setComplete = function(up, info) {
     var res = $.parseJSON(info);
     var url;
 	var button0 = "<button class='btn btn-default copypaste0'>复制此链接</button>";
-	var button1 = " <button class='btn btn-default copypaste1'>复制原图链接</button>";
-	var button2 = " <button class='btn btn-default copypaste2'>复制原图链接(带[img]标签)</button>";
+	var button1 = " <button class='btn btn-default copypaste1'>复制原链接</button>";
+	var button2 = " <button class='btn btn-default copypaste2'>复制原链接(带[img]标签)</button>";
     if (res.url) {
         url = res.url;
         str = "<input class='form-control' type='text'  value=" + res.url + " /><br/>" + button0 + button1 + button2;
