@@ -21,7 +21,7 @@ function getlink(url){
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4) {
 			var retUrl = xhr.responseText;
-			if(retUrl != 'none' && retUrl.match("int64ago.qiniudn.com") != null){
+			if(retUrl != 'none' && retUrl.match(".com") != null){
 				copyTextToClipboard(retUrl);
 				showMsg("成功生成外链:-)", "images/icon48.png", "链接已经复制到剪贴板");
 			}else{
