@@ -16,8 +16,8 @@
             var param = this.params;
             this.on("sending", function (file, xhr, formData) {
                 var suffix = file.name.split('.').pop();
-                suffix = file.name.length - suffix.length <= 1 ? '' : suffix;
-                formData.append('key', Math.random().toString(36).substring(5) + '.' + suffix);
+                suffix = file.name.length - suffix.length <= 1 ? '' : ('.' + suffix);
+                formData.append('key', Math.random().toString(36).substring(5) + suffix);
                 formData.append('token', uptoken);
             });
         }
