@@ -4,7 +4,7 @@
     "use strict";
     var xhr = new XMLHttpRequest(),
         uptoken = '';
-    xhr.open('GET', 'http://qiniu.coding.io/uptoken', false);
+    xhr.open('POST', 'http://qiniu.coding.io/uptoken', false);
     xhr.onload = function (e) {
         if (this.status === 200) {
             uptoken = this.response;
