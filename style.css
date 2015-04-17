@@ -15,16 +15,23 @@
     margin-top: 1.4rem;
 }
 
+.dz-preview:hover {
+    cursor: pointer;
+}
+
 #title {
     color: #FF6347;
     text-shadow: 2px 2px 2px #FFFFFF;
 }
+
 #sub-title {
     color: #E4E8F2;
 }
-html, body {
+
+html,
+body {
     height: 100%;
-    font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-family: 'Orbitron', sans-serif;
     font-size: 20px;
     font-weight: 300;
     line-height: 1.4rem;
@@ -45,4 +52,12 @@ html, body {
     body {
         font-size: 16px;
     }
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Orbitron-Light'), local('Orbitron-Regular'), url(http://int64ago.qiniudn.com/o_19j2ug0l9b4mo8q1obf166lrfp9.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
