@@ -1,14 +1,23 @@
-/*global Dropzone, console, alert, $*/
+/*global Dropzone, console, alert, ActiveXObject, $*/
 
 (function () {
     "use strict";
     var uptoken = '',
+        hasFlash = false,
         domain = 'http://7xih5a.com1.z0.glb.clouddn.com/';
     $.post('http://qiniu.coding.io/uptoken', function (data) {
         uptoken = data;
     }).fail(function () {
         alert('Oops! Get uptoken error.');
     });
+    hasFlash = (function (a, b) {
+        try {
+            a = new ActiveXObject(a + b + '.' + a + b);
+        } catch (e) {
+            a = navigator.plugins[a + ' ' + b];
+        }
+        return !!a;
+    }('Shockwave', 'Flash'));
     Dropzone.options.myAwesomeDropzone = {
         maxFilesize: 6,
         maxFiles: 50,
@@ -24,16 +33,22 @@
             this.on('success', function (file, response) {
                 var preEle = $(file.previewElement);
                 preEle.attr('title', 'Click && Get Link!');
-                preEle.zclip({
-                    path: 'ZeroClipboard.swf',
-                    copy: domain + response.key,
-                    afterCopy: function () {
-                        $('#copy-status').css('color', '#3BE269');
-                        setTimeout(function () {
-                            $('#copy-status').css('color', '#457DB6');
-                        }, 1000);
-                    }
-                });
+                if (hasFlash) {
+                    preEle.zclip({
+                        path: 'ZeroClipboard.swf',
+                        copy: domain + response.key,
+                        afterCopy: function () {
+                            $('#copy-status').css('color', '#3BE269');
+                            setTimeout(function () {
+                                $('#copy-status').css('color', '#457DB6');
+                            }, 1000);
+                        }
+                    });
+                } else {
+                    preEle.on('click', function () {
+                        window.prompt("Copy to clipboard: Ctrl+C, Enter", domain + response.key);
+                    });
+                }
             });
         }
     };
