@@ -21,7 +21,7 @@
     Dropzone.options.myAwesomeDropzone = {
         maxFilesize: 6,
         maxFiles: 50,
-        acceptedFiles: 'image/*,.json',
+        acceptedFiles: 'image/*,.json,.txt',
         init: function () {
             var param = this.params;
             this.on('sending', function (file, xhr, formData) {
