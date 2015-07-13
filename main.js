@@ -4,7 +4,7 @@
     "use strict";
     var uptoken = '',
         hasFlash = false,
-        domain = 'http://int64ago.qiniudn.com/';
+        domain = 'https://dn-getlink.qbox.me/';
     $.post('http://qiniu.coding.io/uptoken', function (data) {
         uptoken = data;
     }).fail(function () {
