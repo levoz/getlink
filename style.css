@@ -58,7 +58,7 @@ body {
     font-family: 'Orbitron';
     font-style: normal;
     font-weight: 400;
-    src: url(http://int64ago.qiniudn.com/o_19j2ug0l9b4mo8q1obf166lrfp9.woff2) format('woff2'),
-        url(http://int64ago.qiniudn.com/o_19j30detp1s2p5cm134j1pc71torj.woff) format('woff');
+    src: url(https://dn-google-fonts.qbox.me/o_19j2ug0l9b4mo8q1obf166lrfp9.woff2) format('woff2'),
+        url(https://dn-google-fonts.qbox.me/o_19j30detp1s2p5cm134j1pc71torj.woff) format('woff');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
