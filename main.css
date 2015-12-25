@@ -1,0 +1,109 @@
+.dropzone {
+    border: 2px dashed #D1D1D1;
+    border-radius: 5px;
+    background: #F9F9F9;
+    color: rgba(0, 0, 0, .54);
+    margin: 10px;
+    height: 250px;
+}
+
+.dropzone .dz-message {
+    font-weight: 400;
+}
+
+.dropzone .dz-message .note {
+    font-size: 0.8em;
+    font-weight: 200;
+    display: block;
+    margin-top: 1.4rem;
+}
+
+.dz-preview:hover {
+    cursor: pointer;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    background-color: #FCFCFC;
+    text-rendering: optimizeLegibility;
+}
+
+.side-nav {
+    background-color: #005C6A;
+}
+
+.brand-logo {
+    margin-left: 10px;
+    font-family: 'Sigmar One', cursive;
+}
+
+.card-action {
+    padding: 10px;
+    font-size: 12px;
+}
+
+.card-action > a {
+    cursor: pointer;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #00B8D4;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: white;
+}
+
+.switch label .lever:after {
+    background-color: #BDBDBD;
+    box-shadow: 0 1px 3px 1px rgba(255, 255, 255, 0.4);
+}
+
+.switch label {
+    color: white;
+}
+
+.side-nav,
+.side-nav a:hover,
+.side-nav li:hover,
+.side-nav li.active {
+    background-color: #53B5C4;
+}
+
+.side-nav a {
+    color: white;
+}
+
+#settings-modal {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+#settings-modal > .modal-content > p {
+    color: red;
+}
+
+.toast {
+    font-size: 15px;
+    word-break: normal;
+    background-color: red;
+}
+
+.fa-check {
+    color: green;
+    display: none;
+}
+
+.fa-times {
+    color: red;
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .dz-message {
+        font-size: 16px;
+    }
+}
