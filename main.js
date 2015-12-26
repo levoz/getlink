@@ -33,8 +33,14 @@
             default: {
                 server: 'https://pub.get-link.xyz/uptoken',
                 authKey: 'getlink',
-                isDefaultServer: 'true',
                 isAutoRename: 'true'
+            },
+            isDefaultServer: function () {
+                if (this.get('server') === this.default['server']
+                    && this.get('authKey') === this.default['authKey']) {
+                    return true;
+                }
+                return false;
             },
             get: function(k, d) {
                 var val = localStorage.getItem('getlink_' + k) || this.default[k];
@@ -57,7 +63,7 @@
 
     var getUpToken = function() {
         // Set logo color
-        if (GL.get('isDefaultServer')) {
+        if (GL.isDefaultServer()) {
             $('.brand-logo').css('color', 'white');
         } else {
             $('.brand-logo').css('color', '#FBC605');
@@ -86,7 +92,7 @@
         } else {
             $('#getlink_server').prop('disabled', false);
             $('#getlink_auth_key').prop('disabled', false);
-            $('#getlink_server').val('');
+            $('#getlink_server').val('').focus();
             $('#getlink_auth_key').val('');
         }
     });
@@ -129,17 +135,24 @@
         ready: function() {
             $('#getlink_server').val(GL.get('server'));
             $('#getlink_auth_key').val(GL.get('authKey'));
-            $('#getlink_default_server').prop('checked', GL.get('isDefaultServer'));
+            $('#getlink_default_server').prop('checked', GL.isDefaultServer());
             $('#getlink_auto_rename').prop('checked', GL.get('isAutoRename'));
-            if (GL.get('isDefaultServer')) {
+            if (GL.isDefaultServer()) {
                 $('#getlink_server').prop('disabled', true);
                 $('#getlink_auth_key').prop('disabled', true);
             }
         },
         complete: function() {
-            GL.set('server', $('#getlink_server').val());
-            GL.set('authKey', $('#getlink_auth_key').val());
-            GL.set('isDefaultServer', $('#getlink_default_server').is(':checked'));
+            var server = $('#getlink_server').val(),
+                authKey = $('#getlink_auth_key').val();
+
+            // If input value is empty, then set it to default
+            if (!server || !authKey) {
+                server = GL.get('server', true);
+                authKey = GL.get('authKey', true);
+            }
+            GL.set('server', server);
+            GL.set('authKey', authKey);
             GL.set('isAutoRename', $('#getlink_auto_rename').is(':checked'));
             getUpToken();
         }
