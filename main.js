@@ -15,7 +15,7 @@
         <div class="col s12 m6 l3">\
         <div class="card hoverable">\
             <div class="card-image">\
-                <img src="{0}" height="200px">\
+                <img class="materialboxed" src="{0}" height="200px">\
             </div>\
             <div class="card-action">\
                 <a class="copy-btn" data-clipboard-text=\'{0}\'>URL</a>\
@@ -125,6 +125,7 @@
                     '![](' + fileUrl + ')'
                 );
                 $('#getlink_preview').append(preview);
+                $('.materialboxed').materialbox();
                 self.removeFile(file);
             });
         }
