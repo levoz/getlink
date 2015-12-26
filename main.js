@@ -33,6 +33,7 @@
             default: {
                 server: 'https://pub.get-link.xyz/uptoken',
                 authKey: 'getlink',
+                preffix: '',
                 isAutoRename: 'true'
             },
             isDefaultServer: function () {
@@ -113,7 +114,7 @@
                     suffix = file.name.length - suffix.length <= 1 ? '' : ('.' + suffix);
                     filename = Math.random().toString(36).substring(5) + suffix;
                 }
-                formData.append('key', filename);
+                formData.append('key', GL.get('preffix') + filename);
                 formData.append('token', token);
             });
             this.on('success', function(file, response) {
@@ -135,6 +136,7 @@
         ready: function() {
             $('#getlink_server').val(GL.get('server'));
             $('#getlink_auth_key').val(GL.get('authKey'));
+            $('#getlink_preffix').val(GL.get('preffix'));
             $('#getlink_default_server').prop('checked', GL.isDefaultServer());
             $('#getlink_auto_rename').prop('checked', GL.get('isAutoRename'));
             if (GL.isDefaultServer()) {
@@ -153,6 +155,7 @@
             }
             GL.set('server', server);
             GL.set('authKey', authKey);
+            GL.set('preffix', $('#getlink_preffix').val())
             GL.set('isAutoRename', $('#getlink_auto_rename').is(':checked'));
             getUpToken();
         }
