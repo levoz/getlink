@@ -7,7 +7,12 @@ The simplest way to get the link ?
 
 Keywords: Qiniu / Material Design / Dropzone / Responsive Design
 
-Preview
+
+New Preview:
+![](https://dn-getlink.qbox.me/pau4bjs65stt9.gif)
+
+
+Old Preview:
 
 ![](https://dn-getlink.qbox.me/x0if07xnljtt9.gif)
 
