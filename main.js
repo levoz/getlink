@@ -2,15 +2,12 @@
     // 'This is a {0} {1} function'.format('string', 'format')
     // ==> 'This is a string format function'
     if (!String.prototype.format) {
-      String.prototype.format = function() {
-        var args = arguments;
-        return this.replace(/{(\d+)}/g, function(match, number) {
-          return typeof args[number] != 'undefined'
-            ? args[number]
-            : match
-          ;
-        });
-      };
+        String.prototype.format = function() {
+            var args = arguments;
+            return this.replace(/{(\d+)}/g, function(match, number) {
+                return typeof args[number] != 'undefined' ? args[number] : match;
+            });
+        };
     }
 
     // Constant
@@ -31,30 +28,32 @@
     </div>\
     ';
 
+    // Settings localStorage methods
     var GL = {
-        default: {
-            server: 'https://pub.get-link.xyz/uptoken',
-            authKey: 'getlink',
-            isDefaultServer: 'true',
-            isAutoRename: 'true'
+            default: {
+                server: 'https://pub.get-link.xyz/uptoken',
+                authKey: 'getlink',
+                isDefaultServer: 'true',
+                isAutoRename: 'true'
+            },
+            get: function(k, d) {
+                var val = localStorage.getItem('getlink_' + k) || this.default[k];
+                if (d) {
+                    val = this.default[k];
+                }
+                if (val === 'true') {
+                    return true;
+                }
+                if (val === 'false') {
+                    return false;
+                }
+                return val;
+            },
+            set: function(k, v) {
+                localStorage.setItem('getlink_' + k, v);
+            }
         },
-        get: function (k, d) {
-            var val = localStorage.getItem('getlink_' + k) || this.default[k];
-            if (d) {
-                val = this.default[k];
-            }
-            if (val === 'true') {
-                return true;
-            }
-            if (val === 'false') {
-                return false;
-            }
-            return val;
-        },
-        set: function (k, v) {
-            localStorage.setItem('getlink_' + k, v);
-        }
-    }, domain, token;
+        domain, token;
 
     var getUpToken = function() {
         // Set logo color
@@ -78,7 +77,6 @@
         });
     };
 
-    // Settings event
     $('#getlink_default_server').change(function() {
         if ($(this).is(':checked')) {
             $('#getlink_server').prop('disabled', true);
@@ -117,7 +115,7 @@
                 var preview = previewTemplate.format(
                     fileUrl,
                     '<img src="' + fileUrl + '">',
-                    '![](' + fileUrl+ ')'
+                    '![](' + fileUrl + ')'
                 );
                 $('#getlink_preview').append(preview);
                 self.removeFile(file);
@@ -151,13 +149,13 @@
     var clipboard = new Clipboard('.copy-btn');
     clipboard.on('success', function(e) {
         $(e.trigger).parent().find('.fa-check').show();
-        setTimeout(function () {
+        setTimeout(function() {
             $(e.trigger).parent().find('.fa-check').hide();
         }, 1000);
     });
     clipboard.on('error', function(e) {
         $(e.trigger).parent().find('.fa-times').show();
-        setTimeout(function () {
+        setTimeout(function() {
             $(e.trigger).parent().find('.fa-times').hide();
         }, 1000);
     });
