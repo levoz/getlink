@@ -18,11 +18,12 @@
                 <img class="materialboxed" src="{0}" height="200px">\
             </div>\
             <div class="card-action">\
-                <a class="copy-btn" data-clipboard-text=\'{0}\'>URL</a>\
-                <a class="copy-btn" data-clipboard-text=\'{1}\'>HTML</a>\
-                <a class="copy-btn" data-clipboard-text=\'{2}\'>Markdown</a>\
+                <a style="margin-right: 8px;" class="copy-btn" data-clipboard-text=\'{0}\'>URL</a>\
+                <a style="margin-right: 8px;" class="copy-btn" data-clipboard-text=\'{1}\'>HTML</a>\
+                <a style="margin-right: 8px;" class="copy-btn" data-clipboard-text=\'{2}\'>Markdown</a>\
                 <i class="fa fa-check"></i>\
                 <i class="fa fa-times"></i>\
+                <i class="right fa fa-trash getlink-remove"></i>\
             </div>\
         </div>\
     </div>\
@@ -36,9 +37,8 @@
                 preffix: '',
                 isAutoRename: 'true'
             },
-            isDefaultServer: function () {
-                if (this.get('server') === this.default['server']
-                    && this.get('authKey') === this.default['authKey']) {
+            isDefaultServer: function() {
+                if (this.get('server') === this.default['server'] && this.get('authKey') === this.default['authKey']) {
                     return true;
                 }
                 return false;
@@ -58,6 +58,23 @@
             },
             set: function(k, v) {
                 localStorage.setItem('getlink_' + k, v);
+            },
+            addUrl: function(url) {
+                var urls = JSON.parse(localStorage.getItem('getlink_urls')) || [];
+                urls.unshift(url);
+                localStorage.setItem('getlink_urls', JSON.stringify(urls));
+            },
+            getUrls: function() {
+                return JSON.parse(localStorage.getItem('getlink_urls')) || [];
+            },
+            removeUrl: function(url) {
+                var urls = JSON.parse(localStorage.getItem('getlink_urls')) || [];
+                urls.splice(urls.indexOf(url), 1);
+                localStorage.setItem('getlink_urls', JSON.stringify(urls));
+                return urls;
+            },
+            removeAllUrls: function() {
+                localStorage.setItem('getlink_urls', '[]');
             }
         },
         domain, token;
@@ -98,6 +115,20 @@
         }
     });
 
+    $('body').on('click', '.getlink-remove', function() {
+        $(this).parents('.card').parent().remove();
+        var urls = GL.removeUrl($(this).parents('.card').find('img').attr('src'));
+        if (urls.length === 0) {
+            $('.getlink-remove-all').hide();
+        }
+    });
+
+    $('.getlink-remove-all').click(function() {
+        $('.card').parent().remove();
+        $(this).hide();
+        GL.removeAllUrls();
+    });
+
     // Dropzone settings
     Dropzone.options.myAwesomeDropzone = {
         addRemoveLinks: true,
@@ -124,7 +155,9 @@
                     '<img src="' + fileUrl + '">',
                     '![](' + fileUrl + ')'
                 );
-                $('#getlink_preview').append(preview);
+                $('#getlink_preview').prepend(preview);
+                $('.getlink-remove-all').show();
+                GL.addUrl(fileUrl);
                 $('.materialboxed').materialbox();
                 self.removeFile(file);
             });
@@ -165,18 +198,27 @@
     // ClipBoard
     var clipboard = new Clipboard('.copy-btn');
     clipboard.on('success', function(e) {
-        $(e.trigger).parent().find('.fa-check').show();
+        $(e.trigger).parent().find('.fa-check').css('visibility', 'visible');
         setTimeout(function() {
-            $(e.trigger).parent().find('.fa-check').hide();
+            $(e.trigger).parent().find('.fa-check').css('visibility', 'hidden');
         }, 1000);
     });
     clipboard.on('error', function(e) {
-        $(e.trigger).parent().find('.fa-times').show();
+        $(e.trigger).parent().find('.fa-times').css('visibility', 'visible');
         setTimeout(function() {
-            $(e.trigger).parent().find('.fa-times').hide();
+            $(e.trigger).parent().find('.fa-times').css('visibility', 'hidden');
         }, 1000);
     });
 
+    GL.getUrls().forEach(function(fileUrl) {
+        var preview = previewTemplate.format(
+            fileUrl,
+            '<img src="' + fileUrl + '">',
+            '![](' + fileUrl + ')'
+        );
+        $('#getlink_preview').append(preview);
+        $('.getlink-remove-all').show();
+    });
     // Let's Rock!
     getUpToken();
 }());

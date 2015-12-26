@@ -46,7 +46,7 @@ body {
     font-size: 12px;
 }
 
-.card-action > a {
+.card-action a {
     cursor: pointer;
 }
 
@@ -94,11 +94,20 @@ body {
 
 .fa-check {
     color: green;
-    display: none;
+    visibility: hidden;
 }
 
 .fa-times {
     color: red;
+    visibility: hidden;
+}
+
+.fa-trash {
+    cursor: pointer;
+    color: #EE6E73;
+}
+
+.getlink-remove-all {
     display: none;
 }
 
