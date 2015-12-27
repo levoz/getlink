@@ -101,6 +101,21 @@
         });
     };
 
+    var updateExtension = function(server, authKey) {
+        if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
+            // https://goo.gl/S7YxOS && https://goo.gl/zgZnjG
+            var editorExtensionId = "fmlfbdbgfhlppienpoodlglaecilpgml";
+            chrome.runtime.sendMessage(
+                editorExtensionId, {
+                    method: 'setStorage',
+                    data: {
+                        server: server,
+                        authKey: authKey
+                    }
+                });
+        }
+    };
+
     $('#getlink_default_server').change(function() {
         if ($(this).is(':checked')) {
             $('#getlink_server').prop('disabled', true);
@@ -189,6 +204,7 @@
             }
             GL.set('server', server);
             GL.set('authKey', authKey);
+            updateExtension(server, authKey);
             GL.set('preffix', $('#getlink_preffix').val())
             GL.set('isAutoRename', $('#getlink_auto_rename').is(':checked'));
             getUpToken();
