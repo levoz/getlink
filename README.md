@@ -5,7 +5,9 @@ The simplest way to get the link ?
 
 ===> https://get-link.xyz
 
-Keywords: Qiniu / Material Design / Dropzone / Responsive Design
+===> [Chrome Extension][1]
+
+Keywords: Qiniu / Material Design / Dropzone / Responsive Design / localStorage
 
 
 
@@ -62,3 +64,5 @@ var qiniu = {
 这里的 `AUTH_KEY` 和你部署的服务器域名（eg: `https://your.server.com`）就是客户端需要的设置的内容
 
 如果有任何问题可以开 Issue :-)
+
+ [1]: https://chrome.google.com/webstore/detail/get-link/fmlfbdbgfhlppienpoodlglaecilpgml
