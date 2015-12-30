@@ -130,8 +130,8 @@
             );
             $('#getlink_preview').append(preview);
             $('.getlink-remove-all').show();
-            $('.materialboxed').materialbox();
         });
+        $('.materialboxed').materialbox();
     };
 
     $('#getlink_default_server').change(function() {
