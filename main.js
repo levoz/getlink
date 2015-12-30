@@ -130,6 +130,7 @@
             );
             $('#getlink_preview').append(preview);
             $('.getlink-remove-all').show();
+            $('.materialboxed').materialbox();
         });
     };
 
