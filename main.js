@@ -15,7 +15,7 @@
         <div class="col s12 m6 l3">\
         <div class="card hoverable">\
             <div class="card-image">\
-                <img class="materialboxed" src="{0}" height="200px">\
+                <img class="materialboxed" src="{0}" {3}>\
             </div>\
             <div class="card-action">\
                 <a style="margin-right: 8px;" class="copy-btn" data-clipboard-text=\'{0}\'>URL</a>\
@@ -35,6 +35,7 @@
                 server: 'https://pub.get-link.xyz/uptoken',
                 authKey: 'getlink',
                 preffix: '',
+                fixHeight: 'true',
                 isAutoRename: 'true'
             },
             isDefaultServer: function() {
@@ -86,6 +87,7 @@
         } else {
             $('.brand-logo').css('color', '#FBC605');
         }
+
         // Get uptoken
         $.post(GL.get('server'), {
             getlink_key: GL.get('authKey')
@@ -114,6 +116,21 @@
                     }
                 });
         }
+    };
+
+    var reloadGallery = function () {
+        $('.getlink-remove-all').hide();
+        $('.card').parent().remove();
+        GL.getUrls().forEach(function(fileUrl) {
+            var preview = previewTemplate.format(
+                fileUrl,
+                '<img src="' + fileUrl + '">',
+                '![](' + fileUrl + ')',
+                GL.get('fixHeight') ? 'height="200px"' : ''
+            );
+            $('#getlink_preview').append(preview);
+            $('.getlink-remove-all').show();
+        });
     };
 
     $('#getlink_default_server').change(function() {
@@ -168,7 +185,8 @@
                 var preview = previewTemplate.format(
                     fileUrl,
                     '<img src="' + fileUrl + '">',
-                    '![](' + fileUrl + ')'
+                    '![](' + fileUrl + ')',
+                    GL.get('fixHeight') ? 'height="200px"' : ''
                 );
                 $('#getlink_preview').prepend(preview);
                 $('.getlink-remove-all').show();
@@ -188,6 +206,7 @@
             $('#getlink_preffix').val(GL.get('preffix'));
             $('#getlink_default_server').prop('checked', GL.isDefaultServer());
             $('#getlink_auto_rename').prop('checked', GL.get('isAutoRename'));
+            $('#getlink_fixheight').prop('checked', GL.get('fixHeight'));
             if (GL.isDefaultServer()) {
                 $('#getlink_server').prop('disabled', true);
                 $('#getlink_auth_key').prop('disabled', true);
@@ -207,6 +226,8 @@
             updateExtension(server, authKey);
             GL.set('preffix', $('#getlink_preffix').val())
             GL.set('isAutoRename', $('#getlink_auto_rename').is(':checked'));
+            GL.set('fixHeight', $('#getlink_fixheight').is(':checked'));
+            reloadGallery();
             getUpToken();
         }
     });
@@ -226,15 +247,7 @@
         }, 1000);
     });
 
-    GL.getUrls().forEach(function(fileUrl) {
-        var preview = previewTemplate.format(
-            fileUrl,
-            '<img src="' + fileUrl + '">',
-            '![](' + fileUrl + ')'
-        );
-        $('#getlink_preview').append(preview);
-        $('.getlink-remove-all').show();
-    });
     // Let's Rock!
+    reloadGallery();
     getUpToken();
 }());
