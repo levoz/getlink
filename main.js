@@ -202,7 +202,9 @@
                     fileUrl,
                     '<img src="' + fileUrl + '">',
                     '![](' + fileUrl + ')',
-                    GL.get('fixHeight') ? 'height="200px"' : ''
+                    GL.get('fixHeight') ? 'height="200px"' : '',
+                    getDisplayStyle(fileUrl),
+                    getFileUrl(fileUrl)
                 );
                 $('#getlink_preview').prepend(preview);
                 $('.getlink-remove-all').show();
