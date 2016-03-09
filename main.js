@@ -19,8 +19,8 @@
             </div>\
             <div class="card-action">\
                 <a style="margin-right: 8px;" class="copy-btn" data-clipboard-text=\'{0}\'>URL</a>\
-                <a style="margin-right: 8px;" class="copy-btn" data-clipboard-text=\'{1}\'>HTML</a>\
-                <a style="margin-right: 8px;" class="copy-btn" data-clipboard-text=\'{2}\'>Markdown</a>\
+                <a style="margin-right: 8px;display: {4}" class="copy-btn" data-clipboard-text=\'{1}\'>HTML</a>\
+                <a style="margin-right: 8px;display: {4}" class="copy-btn" data-clipboard-text=\'{2}\'>Markdown</a>\
                 <i class="fa fa-check"></i>\
                 <i class="fa fa-times"></i>\
                 <i class="right fa fa-trash getlink-remove"></i>\
@@ -118,15 +118,30 @@
         }
     };
 
+    var getFileUrl = function(url) {
+        if (/\.(gif|jpe?g|tiff|png|bmp|ico)$/.test(url)) {
+            return url;
+        }
+        return 'https://dn-getlink.qbox.me/no_preview.jpg';
+    };
+
+    var getDisplayStyle = function(url) {
+        if (/\.(gif|jpe?g|tiff|png|bmp|ico)$/.test(url)) {
+            return 'none';
+        }
+        return 'block';
+    };
+
     var reloadGallery = function () {
         $('.getlink-remove-all').hide();
         $('.card').parent().remove();
         GL.getUrls().forEach(function(fileUrl) {
             var preview = previewTemplate.format(
                 fileUrl,
-                '<img src="' + fileUrl + '">',
+                '<img src="' + getFileUrl(fileUrl) + '">',
                 '![](' + fileUrl + ')',
-                GL.get('fixHeight') ? 'height="200px"' : ''
+                GL.get('fixHeight') ? 'height="200px"' : '',
+                getDisplayStyle(fileUrl);
             );
             $('#getlink_preview').append(preview);
             $('.getlink-remove-all').show();
@@ -167,7 +182,7 @@
         addRemoveLinks: true,
         maxFilesize: 100,
         maxFiles: 100,
-        acceptedFiles: 'image/*',
+        acceptedFiles: '*',
         init: function() {
             var param = this.params;
             var self = this;
