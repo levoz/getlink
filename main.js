@@ -15,7 +15,7 @@
         <div class="col s12 m6 l3">\
         <div class="card hoverable">\
             <div class="card-image">\
-                <img class="materialboxed" src="{0}" {3}>\
+                <img class="materialboxed" src="{5}" {3}>\
             </div>\
             <div class="card-action">\
                 <a style="margin-right: 8px;" class="copy-btn" data-clipboard-text=\'{0}\'>URL</a>\
@@ -127,9 +127,9 @@
 
     var getDisplayStyle = function(url) {
         if (/\.(gif|jpe?g|tiff|png|bmp|ico)$/.test(url)) {
-            return 'none';
+            return 'inline';
         }
-        return 'block';
+        return 'none';
     };
 
     var reloadGallery = function () {
@@ -138,10 +138,11 @@
         GL.getUrls().forEach(function(fileUrl) {
             var preview = previewTemplate.format(
                 fileUrl,
-                '<img src="' + getFileUrl(fileUrl) + '">',
+                '<img src="' + fileUrl + '">',
                 '![](' + fileUrl + ')',
                 GL.get('fixHeight') ? 'height="200px"' : '',
-                getDisplayStyle(fileUrl);
+                getDisplayStyle(fileUrl),
+                getFileUrl(fileUrl)
             );
             $('#getlink_preview').append(preview);
             $('.getlink-remove-all').show();
@@ -182,7 +183,6 @@
         addRemoveLinks: true,
         maxFilesize: 100,
         maxFiles: 100,
-        acceptedFiles: '*',
         init: function() {
             var param = this.params;
             var self = this;
