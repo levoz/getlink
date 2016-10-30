@@ -5,7 +5,9 @@
         String.prototype.format = function() {
             var args = arguments;
             return this.replace(/{(\d+)}/g, function(match, number) {
-                return typeof args[number] != 'undefined' ? args[number] : match;
+                return typeof args[number] != 'undefined'
+                    ? args[number]
+                    : match;
             });
         };
     }
@@ -78,7 +80,8 @@
                 localStorage.setItem('getlink_urls', '[]');
             }
         },
-        domain, token;
+        domain,
+        token;
 
     var getUpToken = function() {
         // Set logo color
@@ -107,14 +110,13 @@
         if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
             // https://goo.gl/S7YxOS && https://goo.gl/zgZnjG
             var editorExtensionId = "fmlfbdbgfhlppienpoodlglaecilpgml";
-            chrome.runtime.sendMessage(
-                editorExtensionId, {
-                    method: 'setStorage',
-                    data: {
-                        server: server,
-                        authKey: authKey
-                    }
-                });
+            chrome.runtime.sendMessage(editorExtensionId, {
+                method: 'setStorage',
+                data: {
+                    server: server,
+                    authKey: authKey
+                }
+            });
         }
     };
 
@@ -132,18 +134,13 @@
         return 'none';
     };
 
-    var reloadGallery = function () {
+    var reloadGallery = function() {
         $('.getlink-remove-all').hide();
         $('.card').parent().remove();
         GL.getUrls().forEach(function(fileUrl) {
-            var preview = previewTemplate.format(
-                fileUrl,
-                '<img src="' + fileUrl + '">',
-                '![](' + fileUrl + ')',
-                GL.get('fixHeight') ? 'height="200px"' : '',
-                getDisplayStyle(fileUrl),
-                getFileUrl(fileUrl)
-            );
+            var preview = previewTemplate.format(fileUrl, '<img src="' + fileUrl + '">', '![](' + fileUrl + ')', GL.get('fixHeight')
+                ? 'height="200px"'
+                : '', getDisplayStyle(fileUrl), getFileUrl(fileUrl));
             $('#getlink_preview').append(preview);
             $('.getlink-remove-all').show();
         });
@@ -190,7 +187,9 @@
                 var filename = file.name;
                 if (GL.get('isAutoRename')) {
                     var suffix = file.name.split('.').pop();
-                    suffix = file.name.length - suffix.length <= 1 ? '' : ('.' + suffix);
+                    suffix = file.name.length - suffix.length <= 1
+                        ? ''
+                        : ('.' + suffix);
                     filename = Math.random().toString(36).substring(5) + suffix;
                 }
                 formData.append('key', GL.get('preffix') + filename);
@@ -198,14 +197,9 @@
             });
             this.on('success', function(file, response) {
                 var fileUrl = domain + '/' + response.key;
-                var preview = previewTemplate.format(
-                    fileUrl,
-                    '<img src="' + fileUrl + '">',
-                    '![](' + fileUrl + ')',
-                    GL.get('fixHeight') ? 'height="200px"' : '',
-                    getDisplayStyle(fileUrl),
-                    getFileUrl(fileUrl)
-                );
+                var preview = previewTemplate.format(fileUrl, '<img src="' + fileUrl + '">', '![](' + fileUrl + ')', GL.get('fixHeight')
+                    ? 'height="200px"'
+                    : '', getDisplayStyle(fileUrl), getFileUrl(fileUrl));
                 $('#getlink_preview').prepend(preview);
                 $('.getlink-remove-all').show();
                 GL.addUrl(fileUrl);
