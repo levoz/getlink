@@ -121,14 +121,14 @@
     };
 
     var getFileUrl = function(url) {
-        if (/\.(gif|jpe?g|tiff|png|bmp|ico)$/.test(url)) {
+        if (/\.(gif|jpe?g|tiff|png|bmp|ico)$/.test(url.toLowerCase())) {
             return url;
         }
         return 'https://dn-getlink.qbox.me/no_preview.jpg';
     };
 
     var getDisplayStyle = function(url) {
-        if (/\.(gif|jpe?g|tiff|png|bmp|ico)$/.test(url)) {
+        if (/\.(gif|jpe?g|tiff|png|bmp|ico)$/.test(url.toLowerCase())) {
             return 'inline';
         }
         return 'none';
