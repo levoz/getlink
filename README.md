@@ -1,27 +1,30 @@
 # Get Link!
+An image hosting based on [Qiniu Cloud](http://www.qiniu.com/), it's for person who wants to use own space quickly.
 
-借助七牛云存储实现的一个简单的图床应用
+:point_right: [Homepage][1]
 
-:point_right: [主页][1]
+:point_right: [Chrome Extension][2]
 
-:point_right: [配套 Chrome 扩展][2]
+![gif](https://cloud.githubusercontent.com/assets/2230882/23831236/5f36fa4a-0758-11e7-825b-19415dd8d424.gif)
+
+## Public bucket
+
+Currently, the public bucket is **ONLY** avaliable for testing, there's no reliability assurance, we have set the strict referer rules and may empty the bucket optionally.
+
+You can check on `Use Default Server` in settings for activating the public bucket, of course, it's checked on by default.
+
+## Private bucket
+
+If you want to use your own bucket, there's the quick way:
+
+ - Register a Qiniu account
+ - Deploy a server for generating `uptoken`
+ - Setting the `AuthKey` in settings
+
+The most important task is to deploy your own server, [here][3] is what I deployed written in Node. You can write one in any language via [Qiniu Docs][4] if you like (The URL API should be the same).
 
 
-## 公共空间
-
-目前的版本可以使用公共的空间（公共空间不保证数据持久性并且设置了防盗链），也可以使用自己的空间，使用公共空间只需要在设置里勾选上 `Use Default Server` 即可，当然这个是默认开启的，其实并不需要任何操作
-
-## 私有空间
-
-这里要做三件事：
-
- - 申请七牛空间
- - 部署服务端程序，用于生成 uptoken
- - 在主页里设置域名和安全码
-
-最主要的就是部署自己的服务端程序，[这个][3]是我用 Node 写的服务端程序，很简单的程序，其实就是为客户端提供 uptoken ，所以你也可以参考[七牛文档][4]自己写（接口一致即可）
-
-部署服务端程序的时候需要几个参数：
+If you deploy with the server I provide, take care of the following params:
 
 ```javascript
 var AUTH_KEY = process.env.AUTH_KEY || '<AUTH_KEY>'
@@ -30,13 +33,11 @@ var qiniu = {
     accessKey: process.env.ACCESS_KEY || '<ACCESS_KEY>',
     secretKey: process.env.SECRET_KEY || '<SECRET_KEY>',
     bucket: process.env.BUCKET || '<BUCKET>',
-    domain: process.env.DOMAIN || '<DOMAIN>', // 七牛空间域名
+    domain: process.env.DOMAIN || '<DOMAIN>',
 };
 ```
 
-这里的 `AUTH_KEY` 和你部署的服务端域名（eg: `https://your.server.com/uptoken`）就是客户端需要的设置的内容
-
-如果有任何问题可以开 Issue :-)
+Remember `AUTH_KEY` and the domain of your server (eg: `https://your.server.com/uptoken`), they will be set in settings.
 
  [1]: https://get-link.xyz
  [2]: https://goo.gl/hI9FR5
