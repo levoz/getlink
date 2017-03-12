@@ -5,7 +5,7 @@ An image hosting based on [Qiniu Cloud](http://www.qiniu.com/), it's for person 
 
 :point_right: [Chrome Extension][2]
 
-![gif](https://cloud.githubusercontent.com/assets/2230882/23831236/5f36fa4a-0758-11e7-825b-19415dd8d424.gif)
+![gif][5]
 
 ## Public bucket
 
@@ -43,3 +43,4 @@ Remember `AUTH_KEY` and the domain of your server (eg: `https://your.server.com/
  [2]: https://goo.gl/hI9FR5
  [3]: https://github.com/int64ago/node-qiniu-server
  [4]: http://developer.qiniu.com/
+ [5]: https://cloud.githubusercontent.com/assets/2230882/23832867/666f030a-0778-11e7-9905-64f221692c11.gif
