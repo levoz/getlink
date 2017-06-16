@@ -100,6 +100,7 @@
             } else {
                 token = data.token;
                 domain = data.domain;
+                updateExtension(GL.get('server'), GL.get('authKey'));
             }
         }).fail(function() {
             Materialize.toast('Oops! Get token error!', 5000);
@@ -235,7 +236,6 @@
             }
             GL.set('server', server);
             GL.set('authKey', authKey);
-            updateExtension(server, authKey);
             GL.set('preffix', $('#getlink_preffix').val())
             GL.set('isAutoRename', $('#getlink_auto_rename').is(':checked'));
             GL.set('fixHeight', $('#getlink_fixheight').is(':checked'));
